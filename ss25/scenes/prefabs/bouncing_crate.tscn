@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://dy2x2ynbllg2h"]
+
+[ext_resource type="Texture2D" uid="uid://cupqsfuqxlcn1" path="res://graphics/crate.png" id="1_7ysli"]
+[ext_resource type="Script" uid="uid://c58ucvxnmfis1" path="res://scripts/crate.gd" id="1_bf6rd"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7ysli"]
+bounce = 0.2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yqjtg"]
+size = Vector2(64, 64)
+
+[node name="BouncingCrate" type="RigidBody2D"]
+input_pickable = true
+physics_material_override = SubResource("PhysicsMaterial_7ysli")
+contact_monitor = true
+max_contacts_reported = 5
+script = ExtResource("1_bf6rd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-0.5, 0)
+texture = ExtResource("1_7ysli")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_yqjtg")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

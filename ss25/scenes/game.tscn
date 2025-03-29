@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=3 uid="uid://cu7dreyn5s0jx"]
+
+[ext_resource type="PackedScene" uid="uid://dy2x2ynbllg2h" path="res://scenes/prefabs/bouncing_crate.tscn" id="1_uwrxv"]
+[ext_resource type="Texture2D" uid="uid://bwsysmnijxnmd" path="res://icon.svg" id="2_yqjtg"]
+[ext_resource type="Script" uid="uid://c8uhwx5wty7te" path="res://scripts/my_first_script.gd" id="3_iywne"]
+[ext_resource type="Script" uid="uid://dfhpyv2m2l8ox" path="res://scripts/physics_player.gd" id="3_lnu2h"]
+
+[sub_resource type="Curve" id="Curve_p57ef"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.489209, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lnu2h"]
+size = Vector2(114, 114)
+
+[node name="Game" type="Node2D"]
+
+[node name="PhysicsLevel" type="Node" parent="."]
+
+[node name="BouncingCrate" parent="PhysicsLevel" instance=ExtResource("1_uwrxv")]
+position = Vector2(119, 313)
+
+[node name="BouncingCrate2" parent="PhysicsLevel" instance=ExtResource("1_uwrxv")]
+position = Vector2(202, 231)
+
+[node name="BouncingCrate3" parent="PhysicsLevel" instance=ExtResource("1_uwrxv")]
+position = Vector2(283, 148)
+rotation = 0.401476
+
+[node name="Floor" type="StaticBody2D" parent="PhysicsLevel"]
+position = Vector2(204, 561)
+
+[node name="Sprite2D" type="Sprite2D" parent="PhysicsLevel/Floor"]
+position = Vector2(1, 0)
+scale = Vector2(3, 3)
+texture = ExtResource("2_yqjtg")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PhysicsLevel/Floor"]
+polygon = PackedVector2Array(-153.176, -190.906, 154.977, -192.497, 180.481, -179.865, 192.172, -155.019, 194.038, 151.153, 181.131, 178.638, 155.019, 192.172, -152.996, 192.772, -176.382, 179.426, -191.181, 155.157, -191.369, -155.83, -176.179, -177.95)
+
+[node name="Floor2" type="StaticBody2D" parent="PhysicsLevel"]
+position = Vector2(587, 583)
+script = ExtResource("3_iywne")
+curve = SubResource("Curve_p57ef")
+
+[node name="Sprite2D" type="Sprite2D" parent="PhysicsLevel/Floor2"]
+position = Vector2(1, 0)
+scale = Vector2(3, 3)
+texture = ExtResource("2_yqjtg")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PhysicsLevel/Floor2"]
+polygon = PackedVector2Array(-153.176, -190.906, 154.977, -192.497, 180.481, -179.865, 192.172, -155.019, 194.038, 151.153, 181.131, 178.638, 155.019, 192.172, -152.996, 192.772, -176.382, 179.426, -191.181, 155.157, -191.369, -155.83, -176.179, -177.95)
+
+[node name="Player" type="CharacterBody2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(550, 243)
+script = ExtResource("3_lnu2h")
+
+[node name="Icon" type="Sprite2D" parent="Player"]
+texture = ExtResource("2_yqjtg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_lnu2h")

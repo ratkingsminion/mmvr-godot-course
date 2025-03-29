@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://2v7s3eux5mf7"]
+
+[ext_resource type="Script" uid="uid://d1hck0cb2ko2h" path="res://scripts/world_generator.gd" id="1_uit2i"]
+[ext_resource type="PackedScene" uid="uid://b4sn1vwx6a0eh" path="res://scenes/prefabs/tile_white.tscn" id="2_jky70"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_jky70"]
+streams_count = 3
+
+[node name="WorldGenerator" type="Node2D"]
+script = ExtResource("1_uit2i")
+tile = ExtResource("2_jky70")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_jky70")

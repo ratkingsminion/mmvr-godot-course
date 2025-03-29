@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://df7ivxlcvra8h"]
+
+[ext_resource type="PackedScene" uid="uid://dy2x2ynbllg2h" path="res://scenes/prefabs/bouncing_crate.tscn" id="1_u48dw"]
+[ext_resource type="Script" uid="uid://bbayomo17ad54" path="res://scripts/spawning.gd" id="1_xwuy2"]
+[ext_resource type="Script" uid="uid://bu12aivaxh0k6" path="res://scripts/despawner.gd" id="4_u48dw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xwuy2"]
+size = Vector2(1000, 20)
+
+[node name="Spawning" type="Node2D"]
+script = ExtResource("1_xwuy2")
+box_scene = ExtResource("1_u48dw")
+
+[node name="BouncingCrate" parent="." instance=ExtResource("1_u48dw")]
+position = Vector2(287, 152)
+
+[node name="Despawner" type="Area2D" parent="."]
+position = Vector2(424, 594)
+script = ExtResource("4_u48dw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Despawner"]
+shape = SubResource("RectangleShape2D_xwuy2")
+
+[connection signal="body_entered" from="Despawner" to="Despawner" method="_on_body_entered"]

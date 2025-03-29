@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8if63d3yyiaa"]
+
+[ext_resource type="Texture2D" uid="uid://c18o24cbriu8u" path="res://graphics/stuff.png" id="1_8vsy1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ih772"]
+atlas = ExtResource("1_8vsy1")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8vsy1"]
+radius = 5.0
+
+[node name="Powerup" type="Area2D" groups=["collectibles"]]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = SubResource("AtlasTexture_ih772")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_8vsy1")

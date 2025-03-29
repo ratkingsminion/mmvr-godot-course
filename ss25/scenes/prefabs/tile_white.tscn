@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4sn1vwx6a0eh"]
+
+[sub_resource type="Gradient" id="Gradient_s8e28"]
+offsets = PackedFloat32Array(0.0212264)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_njxxx"]
+gradient = SubResource("Gradient_s8e28")
+
+[node name="Tile_WHite" type="Sprite2D"]
+texture = SubResource("GradientTexture2D_njxxx")
