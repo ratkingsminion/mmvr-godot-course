@@ -1,0 +1,68 @@
+[gd_scene load_steps=8 format=3 uid="uid://bqpjp1w3rhh6v"]
+
+[ext_resource type="PackedScene" uid="uid://bpin6xm4dm2vb" path="res://scenes/player.tscn" id="1_uwrxv"]
+[ext_resource type="Script" uid="uid://vl5fn1aa22se" path="res://scripts/game.gd" id="1_yqjtg"]
+[ext_resource type="PackedScene" uid="uid://wr5a5fp2g3b4" path="res://scenes/tile.tscn" id="2_lnu2h"]
+[ext_resource type="AudioStream" uid="uid://cy5j6cfxih4ke" path="res://sounds/start.wav" id="4_lbhrr"]
+[ext_resource type="AudioStream" uid="uid://bhx63i4yeoq1n" path="res://sounds/step.wav" id="5_iywne"]
+[ext_resource type="AudioStream" uid="uid://b0g720q1hkk5d" path="res://sounds/hat.wav" id="6_p57ef"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_p57ef"]
+random_pitch = 1.5
+streams_count = 1
+stream_0/stream = ExtResource("5_iywne")
+
+[node name="Game" type="Node2D" node_paths=PackedStringArray("player", "player_step_audio", "player_hat_audio", "level_container", "ui_level_hint")]
+texture_filter = 1
+script = ExtResource("1_yqjtg")
+player = NodePath("Player")
+player_step_audio = NodePath("Step AudioStreamPlayer")
+player_hat_audio = NodePath("Hat AudioStreamPlayer")
+level_container = NodePath("Level")
+tile_scene = ExtResource("2_lnu2h")
+level_sizes = Array[Vector2i]([Vector2i(5, 8), Vector2i(12, 14), Vector2i(40, 50)])
+ui_level_hint = NodePath("CanvasLayer/CenterContainer/RichTextLabel")
+
+[node name="Level" type="Node2D" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("1_uwrxv")]
+position = Vector2(117, 85)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(4, 4)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_lbhrr")
+autoplay = true
+
+[node name="Step AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_p57ef")
+
+[node name="Hat AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_p57ef")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(400, 300)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/CenterContainer"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/normal_font_size = 50
+theme_override_font_sizes/bold_font_size = 50
+bbcode_enabled = true
+text = "Level 1"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1

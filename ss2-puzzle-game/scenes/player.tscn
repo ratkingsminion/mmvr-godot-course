@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://bpin6xm4dm2vb"]
+
+[ext_resource type="Texture2D" uid="uid://d17gps7g7b0sm" path="res://gfx/player.png" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://cjk1py3wdyrhy" path="res://scripts/player.gd" id="1_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://ocr4polaf8gg" path="res://gfx/hat1.png" id="2_qlg0r"]
+[ext_resource type="Texture2D" uid="uid://4dd1fisv2i7o" path="res://gfx/hat3.png" id="3_dqkch"]
+[ext_resource type="Texture2D" uid="uid://bgndx1dixj28l" path="res://gfx/hat2.png" id="3_tuyoq"]
+
+[node name="Player" type="Node2D" node_paths=PackedStringArray("sprite", "sprite_hat")]
+texture_filter = 1
+script = ExtResource("1_qhqgy")
+sprite = NodePath("Sprite2D")
+sprite_hat = NodePath("Sprite2D/Hat Sprite2D")
+hats = Array[Texture2D]([null, ExtResource("2_qlg0r"), ExtResource("3_tuyoq"), ExtResource("3_dqkch")])
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -6)
+texture = ExtResource("1_3vyb7")
+
+[node name="Hat Sprite2D" type="Sprite2D" parent="Sprite2D"]
+position = Vector2(0, -13)
+texture = ExtResource("3_dqkch")

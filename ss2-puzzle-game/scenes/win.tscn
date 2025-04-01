@@ -1,0 +1,76 @@
+[gd_scene load_steps=6 format=3 uid="uid://bsi3xgefa7raw"]
+
+[ext_resource type="Script" uid="uid://yxhrvouii46u" path="res://scripts/state_changer.gd" id="1_r4oei"]
+[ext_resource type="AudioStream" uid="uid://6x2rkd5qj014" path="res://sounds/win.wav" id="2_826fv"]
+
+[sub_resource type="Gradient" id="Gradient_afbyi"]
+colors = PackedColorArray(0.2268, 0.63, 0.50904, 1, 0.717333, 1, 0.47, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_r4oei"]
+gradient = SubResource("Gradient_afbyi")
+fill_from = Vector2(1, 0)
+fill_to = Vector2(0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_826fv"]
+texture = SubResource("GradientTexture2D_r4oei")
+
+[node name="Win" type="Node2D" node_paths=PackedStringArray("input_hint_label")]
+script = ExtResource("1_r4oei")
+input_hint_label = NodePath("PanelContainer/CenterContainer/VBoxContainer/Control/InputHint RichTextLabel")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 800.0
+offset_bottom = 600.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_826fv")
+
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(600, 150)
+layout_mode = 2
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/normal_font_size = 45
+theme_override_font_sizes/bold_font_size = 45
+bbcode_enabled = true
+text = "[rainbow][wave][b]Y O U   W O N[/b][/wave][/rainbow]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="PanelContainer/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(600, 150)
+layout_mode = 2
+
+[node name="InputHint RichTextLabel" type="RichTextLabel" parent="PanelContainer/CenterContainer/VBoxContainer/Control"]
+custom_minimum_size = Vector2(600, 150)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -75.0
+offset_right = 300.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 30
+theme_override_font_sizes/bold_font_size = 30
+bbcode_enabled = true
+text = "Press Space"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_826fv")
+autoplay = true
