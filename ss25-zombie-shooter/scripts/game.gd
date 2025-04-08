@@ -4,9 +4,22 @@ extends Node2D
 static var instance: Game
 
 @onready var cam: Camera2D = $Camera2D
+@onready var timer: Timer = $Timer
 
 func _enter_tree() -> void:
 	instance = self
+
+func _ready() -> void:
+	timer.timeout.connect(_on_time_out)
+
+func _process(delta: float) -> void:
+	if Input.is_key_pressed(KEY_ESCAPE):
+		get_tree().quit()
+
+### signals
+
+func _on_time_out() -> void:
+	get_tree().quit()
 
 ### helpers
 
