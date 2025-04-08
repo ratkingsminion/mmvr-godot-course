@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://sdexwa2p1xjd"]
+
+[ext_resource type="Script" uid="uid://dwbipppscrmk8" path="res://scripts/creature.gd" id="1_xepks"]
+[ext_resource type="Script" uid="uid://kmaxxmtdub2s" path="res://scripts/zombie_ai.gd" id="2_xepks"]
+[ext_resource type="Texture2D" uid="uid://k7munw0bnxgb" path="res://gfx/player.png" id="3_ycv6i"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_80nbo"]
+radius = 6.0
+
+[node name="Zombie CharacterBody2D" type="CharacterBody2D"]
+modulate = Color(2.31028e-06, 0.977046, 0.714795, 1)
+motion_mode = 1
+script = ExtResource("1_xepks")
+move_speed = 35.0
+
+[node name="AiComponent" type="Node" parent="." node_paths=PackedStringArray("agent")]
+script = ExtResource("2_xepks")
+agent = NodePath("../NavigationAgent2D")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 5.0
+target_desired_distance = 5.0
+avoidance_enabled = true
+avoidance_priority = 0.5
+debug_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_ycv6i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_80nbo")

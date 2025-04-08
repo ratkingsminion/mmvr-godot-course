@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://ct6niinrrlc1r"]
 
 [ext_resource type="Texture2D" uid="uid://k7munw0bnxgb" path="res://gfx/player.png" id="1_3vyb7"]
-[ext_resource type="Script" uid="uid://dwbipppscrmk8" path="res://scripts/player.gd" id="1_g2els"]
-[ext_resource type="Script" uid="uid://d1sdfacv4qulf" path="res://scripts/sprite_scaler.gd" id="3_qhqgy"]
+[ext_resource type="Script" uid="uid://dwbipppscrmk8" path="res://scripts/creature.gd" id="1_g2els"]
+[ext_resource type="Script" uid="uid://dny2kusv46hln" path="res://scripts/player_input.gd" id="2_dqkch"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_80nbo"]
 radius = 6.0
@@ -10,6 +10,11 @@ radius = 6.0
 [node name="Player CharacterBody2D" type="CharacterBody2D"]
 motion_mode = 1
 script = ExtResource("1_g2els")
+move_speed = 80.0
+
+[node name="InputComponent" type="Node" parent="." node_paths=PackedStringArray("agent")]
+script = ExtResource("2_dqkch")
+agent = NodePath("../NavigationAgent2D")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 5.0
@@ -18,7 +23,6 @@ debug_enabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_3vyb7")
-script = ExtResource("3_qhqgy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_80nbo")

@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=4 uid="uid://drqeqqqsfufmd"]
+[gd_scene load_steps=10 format=4 uid="uid://drqeqqqsfufmd"]
 
 [ext_resource type="TileSet" uid="uid://c211j13hiwf8h" path="res://tiles.tres" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://c4ofv6faxx545" path="res://scripts/game.gd" id="1_feb5d"]
 [ext_resource type="PackedScene" uid="uid://ct6niinrrlc1r" path="res://scenes/player.tscn" id="2_e2o6t"]
 [ext_resource type="Script" uid="uid://whkx1vmdih30" path="res://scripts/ui.gd" id="4_fc0e3"]
+[ext_resource type="PackedScene" uid="uid://sdexwa2p1xjd" path="res://scenes/zombie.tscn" id="5_7jktm"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_e2o6t"]
 vertices = PackedVector2Array(330, 186, 54, 186, 166, 166, 202, 166, 90, 166, 310, 118, 310, 74, 330, 54, 166, 118, 166, 74, 202, 74, 54, 54, 250, 74, 90, 122, 282, 122, 282, 138, 266, 138, 246, 102, 266, 166, 262, 166, 262, 138, 230, 138, 230, 102, 118, 118, 118, 102, 138, 102, 138, 118, 138, 122, 138, 138, 118, 138, 118, 122, 250, 102, 282, 102, 282, 118, 310, 166, 310, 122, 246, 74, 90, 74, 90, 118, 166, 122)
@@ -36,6 +37,7 @@ one_shot = true
 autostart = true
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+position = Vector2(164, 130)
 navigation_polygon = SubResource("NavigationPolygon_e2o6t")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="NavigationRegion2D"]
@@ -43,7 +45,7 @@ tile_map_data = PackedByteArray("AAACAAIAAAABAAAAAAACAAMAAAABAAAAAAACAAQAAAABAAA
 tile_set = ExtResource("1_80nbo")
 
 [node name="Player CharacterBody2D" parent="." instance=ExtResource("2_e2o6t")]
-position = Vector2(183, 119)
+position = Vector2(357, 250)
 
 [node name="Line2D" type="Line2D" parent="."]
 visible = false
@@ -53,7 +55,7 @@ gradient = SubResource("Gradient_feb5d")
 script = SubResource("GDScript_fc0e3")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(192, 123)
+position = Vector2(356, 253)
 zoom = Vector2(2.41, 2.41)
 
 [node name="UI" type="CanvasLayer" parent="."]
@@ -74,3 +76,21 @@ layout_mode = 2
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 32
 text = "00:00:00"
+
+[node name="Zombie CharacterBody2D" parent="." instance=ExtResource("5_7jktm")]
+position = Vector2(346, 304)
+
+[node name="Zombie CharacterBody2D2" parent="." instance=ExtResource("5_7jktm")]
+position = Vector2(367, 305)
+
+[node name="Zombie CharacterBody2D3" parent="." instance=ExtResource("5_7jktm")]
+position = Vector2(347, 284)
+
+[node name="Zombie CharacterBody2D4" parent="." instance=ExtResource("5_7jktm")]
+position = Vector2(235, 208)
+
+[node name="Zombie CharacterBody2D5" parent="." instance=ExtResource("5_7jktm")]
+position = Vector2(256, 194)
+
+[node name="Zombie CharacterBody2D6" parent="." instance=ExtResource("5_7jktm")]
+position = Vector2(283, 194)

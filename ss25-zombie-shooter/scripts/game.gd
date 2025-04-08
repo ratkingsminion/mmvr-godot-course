@@ -5,6 +5,7 @@ static var instance: Game
 
 @onready var cam: Camera2D = $Camera2D
 @onready var timer: Timer = $Timer
+@onready var player: CharacterBody2D = $"Player CharacterBody2D"
 
 func _enter_tree() -> void:
 	instance = self
