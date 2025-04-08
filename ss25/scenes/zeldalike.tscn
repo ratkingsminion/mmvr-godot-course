@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://6pv36awabydh"]
+[gd_scene load_steps=38 format=4 uid="uid://6pv36awabydh"]
 
 [ext_resource type="Texture2D" uid="uid://cupqsfuqxlcn1" path="res://graphics/crate.png" id="1_d3dpf"]
 [ext_resource type="Script" uid="uid://cencsjx0ocpai" path="res://scripts/zelda_player.gd" id="1_xaqt8"]
@@ -101,7 +101,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [8, 8]
+"values": [8, 9]
 }
 
 [sub_resource type="Animation" id="Animation_op7d5"]
@@ -146,6 +146,65 @@ _data = {
 &"walk": SubResource("Animation_op7d5"),
 &"walk_up": SubResource("Animation_csjhk")
 }
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_citai"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rj37h"]
+animation = &"idle_up"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_oo4la"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_csjhk"]
+animation = &"walk_up"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rj37h"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_oo4la"]
+advance_mode = 2
+advance_expression = "velocity.y < 0.0"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_csjhk"]
+advance_mode = 2
+advance_expression = "velocity.y > 0.0"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nv1qr"]
+advance_mode = 2
+advance_expression = "velocity.y < 0.0"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1jsy3"]
+advance_mode = 2
+advance_expression = "velocity.y > 0.0"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_citai"]
+advance_mode = 2
+advance_expression = "velocity.length() > 0.0"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8vyht"]
+advance_mode = 2
+advance_expression = "velocity.length() <= 0.0"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_a5ci1"]
+advance_mode = 2
+advance_expression = "velocity.length() > 0.0"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4m0g7"]
+advance_mode = 2
+advance_expression = "velocity.length() <= 0.0"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_oo4la"]
+states/idle/node = SubResource("AnimationNodeAnimation_citai")
+states/idle/position = Vector2(406.2, 35.8)
+states/idle_up/node = SubResource("AnimationNodeAnimation_rj37h")
+states/idle_up/position = Vector2(606, 35.872)
+states/walk/node = SubResource("AnimationNodeAnimation_oo4la")
+states/walk/position = Vector2(407.056, 149.344)
+states/walk_up/node = SubResource("AnimationNodeAnimation_csjhk")
+states/walk_up/position = Vector2(606.64, 148.8)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_rj37h"), "idle", "idle_up", SubResource("AnimationNodeStateMachineTransition_oo4la"), "idle_up", "idle", SubResource("AnimationNodeStateMachineTransition_csjhk"), "walk", "walk_up", SubResource("AnimationNodeStateMachineTransition_nv1qr"), "walk_up", "walk", SubResource("AnimationNodeStateMachineTransition_1jsy3"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_citai"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_8vyht"), "idle_up", "walk_up", SubResource("AnimationNodeStateMachineTransition_a5ci1"), "walk_up", "idle_up", SubResource("AnimationNodeStateMachineTransition_4m0g7")]
+graph_offset = Vector2(156, -36)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_op7d5"]
 
@@ -252,6 +311,11 @@ vframes = 4
 libraries = {
 &"": SubResource("AnimationLibrary_op7d5")
 }
+
+[node name="AnimationTree" type="AnimationTree" parent="ZeldaPlayer"]
+tree_root = SubResource("AnimationNodeStateMachine_oo4la")
+advance_expression_base_node = NodePath("..")
+anim_player = NodePath("../AnimationPlayer")
 
 [node name="PointLight2D" type="PointLight2D" parent="ZeldaPlayer"]
 shadow_enabled = true

@@ -40,7 +40,7 @@ func _ready() -> void:
 		buttons[i].button_down.connect(change_move_dir.bind(dirs[i]))
 		buttons[i].button_up.connect(change_move_dir.bind(Vector2.ZERO))
 
-## _physics_process() wird einmal pro Physil-Update aufgerufen. In den Projekteinstellungen wird
+## _physics_process() wird einmal pro Physik-Update aufgerufen. In den Projekteinstellungen wird
 ## definiert, dass die Physics 60 Mal pro Sekunde aufgerufen werden. Somit kann man sichergehen,
 ## dass selbst bei 10 Frames pro Sekunde oder bei 400 Frames pro Sekunde, die folgende Funktion
 ## wirklich nur 60 Mal pro Sekunde aufgerufen wird. (Im Gegensatz zu _process().)
@@ -69,12 +69,12 @@ func _physics_process(delta: float) -> void:
 	## Sollte es doch eine Geschwindigkeit geben ("else"), wird festgestellt, ob de Geschwindigkeit
 	## in y-Richtung ungleich 0 ist, und je nach Richtung der "anim_postfix" angepasst. Danach wird
 	## die "walk"-Animation abgespielt, da man sich ja bewegt.
-	if not velocity:
-		anim.play("idle" + anim_postfix)
-	else:
-		if velocity.y < 0: anim_postfix = "_up"
-		elif velocity.y > 0: anim_postfix = "" # down anim
-		anim.play("walk" + anim_postfix)
+#	if not velocity:
+#		anim.play("idle" + anim_postfix)
+#	else:
+#		if velocity.y < 0: anim_postfix = "_up"
+#		elif velocity.y > 0: anim_postfix = "" # down anim
+#		anim.play("walk" + anim_postfix)
 
 ## Diese Funktion wurde mit der Area2D namens "Checker" verknüpft, bzw. mit deren "area_entered"-Signal.
 ## Sie soll uns helfen, Powerups einzusammeln. Sie wird nur aufgerufen, wenn die an den Player angeheftete

@@ -1,0 +1,7 @@
+KLEINER ZOMBIE SHOOTER
+- ZIEL: Erledige die Zombiewellen
+- Spielzeit 60 Sekunden
+- Bewegung per Mausklick
+- Schießen ebenfalls per Mausklick
+- Zombies haben kleine AI - bewegen sich auf Spielfigur zu und attackieren
+- Player hat Health
