@@ -45,15 +45,17 @@ func _ready() -> void:
 ## dass selbst bei 10 Frames pro Sekunde oder bei 400 Frames pro Sekunde, die folgende Funktion
 ## wirklich nur 60 Mal pro Sekunde aufgerufen wird. (Im Gegensatz zu _process().)
 func _physics_process(delta: float) -> void:
-	# Bewegung via Actions - auskommentiert, da wir über die Buttons in der UI die Figur steuern
-	#var move_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	## Bewegung via Actions - eigentlich steuern wir die Figur über die Buttons in der UI,
+	## aber man kann ja beides verknüpfen
+	var input_move_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	var final_move_dir := move_dir if move_dir else input_move_dir 
 	
 	## Da move_dir ein Vektor ist und der Null-Vektor (x=0 und y=0) als "false" interpretiert wird,
 	## kann man einfach "if move_dir" abfragen, um festzustellen, ob es gerade eine Eingabe über
 	## über die Bewegungsbuttons gibt. Ist dies der Fall, wird die "velocity"-Variable von
 	## CharacaterBody2D entsprechend gesetzt. Andernfalls ("else") wird die velocity dem Null-Vektor
 	## angenähert (via move_toward().
-	if move_dir: velocity = move_dir * SPEED
+	if final_move_dir: velocity = final_move_dir * SPEED
 	else: velocity = velocity.move_toward(Vector2.ZERO, SPEED)
 
 	## Die folgende Funktion wird aufgerufen, damit die "velocity"-Variable überhaupt benutzt wird.
