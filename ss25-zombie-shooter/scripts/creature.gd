@@ -8,8 +8,7 @@ func _physics_process(delta: float) -> void:
 	var next_pos := agent.get_next_path_position()
 	var dir := next_pos - position
 	if dir:
-		velocity = dir.normalized() * move_speed
+		velocity = dir.normalized() * minf(move_speed, dir.length() / delta)
 	else:
 		velocity = Vector2.ZERO
-	
 	move_and_slide()
