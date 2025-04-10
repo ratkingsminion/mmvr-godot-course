@@ -3,7 +3,7 @@ extends Node
 @export var agent: NavigationAgent2D
 
 @onready var health: Health = $"../HealthComponent"
-@onready var weapon: Node = $"../WeaponComponent"
+@onready var weapon: Weapon = $"../WeaponComponent"
 
 func _ready() -> void:
 	health.on_hit.connect(UI.instance.hurt)

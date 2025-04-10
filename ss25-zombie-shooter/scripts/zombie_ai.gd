@@ -10,7 +10,7 @@ enum State { IDLE, FOLLOW, ATTACK }
 @onready var area_2d: Area2D = $Area2D
 @onready var health: Health = $"../HealthComponent"
 
-var state: State = State.IDLE
+var state: State = State.FOLLOW
 var follow_timer := 0.0
 var attack_timer := 0.0
 
@@ -24,7 +24,7 @@ func _physics_process(delta: float) -> void:
 		State.IDLE: _idle(sees_player)
 		State.FOLLOW: _follow(sees_player)
 		State.ATTACK: _attack()
-	debug_label.text = State.keys()[state]
+	debug_label.text = State.keys()[state].to_lower()
 
 func _idle(sees_player: bool) -> void:
 	var target_position := creature.position
@@ -33,7 +33,7 @@ func _idle(sees_player: bool) -> void:
 
 func _follow(sees_player: bool) -> void:
 	var target_position := Game.instance.player.position
-	if sees_player: follow_timer = 5.0 # "erinnere" dich an Player
+	if sees_player or follow_timer <= 0.0: follow_timer = 5.0 # "erinnere" dich an Player
 	else: follow_timer -= get_physics_process_delta_time() # "vergiss" Player
 	if follow_timer <= 0.0: state = State.IDLE # Vergessen? Zurück zu Idle
 	if target_position.distance_to(creature.position) < 15:

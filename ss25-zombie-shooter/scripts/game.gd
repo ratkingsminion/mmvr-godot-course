@@ -17,7 +17,7 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	timer.timeout.connect(_on_time_out)
 	zombie_spawn_timer.timeout.connect(_spawn_zombie)
-	for i in 5: _spawn_zombie()
+	#for i in 5: _spawn_zombie()
 
 func _process(delta: float) -> void:
 	if Input.is_key_pressed(KEY_ESCAPE):
@@ -37,7 +37,7 @@ func _spawn_zombie() -> void:
 	while point.position.distance_to(player.position) < 25.0:
 		point = points.pick_random()
 	zombie.position = point.position + Vector2(randf_range(-3, 3), randf_range(-3, 3))
-	add_child(zombie)
+	add_child(zombie, true)
 
 func _on_time_out() -> void:
 	get_tree().quit()

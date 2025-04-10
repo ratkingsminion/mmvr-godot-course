@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://dny2kusv46hln" path="res://scripts/player_input.gd" id="2_dqkch"]
 [ext_resource type="Script" uid="uid://fl37ld8nnglm" path="res://scripts/health.gd" id="3_dqkch"]
 [ext_resource type="Script" uid="uid://s1ghwg0dd2ol" path="res://scripts/weapon.gd" id="4_qlg0r"]
-[ext_resource type="Texture2D" uid="uid://s7u8irbkjtby" path="res://icon.svg" id="5_tuyoq"]
+[ext_resource type="Texture2D" uid="uid://ereswif6vyfc" path="res://gfx/gun.png" id="5_tuyoq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_80nbo"]
 radius = 6.0
@@ -16,7 +16,7 @@ bg_color = Color(0, 0, 0, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qlg0r"]
 bg_color = Color(0.998104, 0.701733, 0.786882, 1)
 
-[node name="Player CharacterBody2D" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D"]
 motion_mode = 1
 script = ExtResource("1_g2els")
 move_speed = 80.0
@@ -33,17 +33,21 @@ script = ExtResource("3_dqkch")
 progress_bar = NodePath("../Health ProgressBar")
 
 [node name="Sprite2D" type="Sprite2D" parent="HealthComponent"]
-scale = Vector2(0.171875, 0.03125)
+position = Vector2(5, 2)
 texture = ExtResource("5_tuyoq")
 
 [node name="WeaponComponent" type="Node" parent="."]
 script = ExtResource("4_qlg0r")
 
+[node name="Shoot Line2D" type="Line2D" parent="WeaponComponent"]
+points = PackedVector2Array(16, 12, 57, 22)
+width = 1.0
+default_color = Color(0.4675, 0.818125, 0.85, 1)
+
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 5.0
 target_desired_distance = 5.0
 avoidance_enabled = true
-debug_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_80nbo")
