@@ -7,6 +7,7 @@ static var instance: Game
 @onready var timer: Timer = $Timer
 @onready var player: CharacterBody2D = $"Player CharacterBody2D"
 @onready var zombie_spawn_timer: Timer = $ZombieSpawnTimer
+@onready var ui: UI = $UI
 
 const ZOMBIE = preload("res://scenes/zombie.tscn")
 
@@ -15,7 +16,7 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 	timer.timeout.connect(_on_time_out)
-	#zombie_spawn_timer.timeout.connect(_spawn_zombie)
+	zombie_spawn_timer.timeout.connect(_spawn_zombie)
 	for i in 5: _spawn_zombie()
 
 func _process(delta: float) -> void:

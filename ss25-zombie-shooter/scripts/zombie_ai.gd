@@ -8,10 +8,14 @@ enum State { IDLE, FOLLOW, ATTACK }
 @onready var creature: CharacterBody2D = $".."
 @onready var debug_label: Label = $"../Debug Label"
 @onready var area_2d: Area2D = $Area2D
+@onready var health: Health = $"../HealthComponent"
 
 var state: State = State.IDLE
 var follow_timer := 0.0
 var attack_timer := 0.0
+
+func _ready() -> void:
+	health.on_hit.connect(_on_hit)
 
 func _physics_process(delta: float) -> void:
 	var player := Game.instance.player
@@ -49,3 +53,10 @@ func _attack() -> void:
 	if attack_timer <= 0.0:
 		state = State.IDLE
 	agent.target_position = target_position
+
+### signals
+
+func _on_hit() -> void:
+	if state in [ State.IDLE ]:
+		state = State.FOLLOW
+		follow_timer = 10.0
