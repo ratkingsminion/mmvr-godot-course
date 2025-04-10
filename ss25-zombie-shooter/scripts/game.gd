@@ -21,6 +21,11 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if Input.is_key_pressed(KEY_ESCAPE):
 		get_tree().quit()
+	if not player:
+		Game.instance.game_over()
+
+func game_over() -> void:
+	get_tree().quit()
 
 ### signals
 

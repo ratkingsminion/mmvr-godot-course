@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctnor87uxso2l"]
+
+[ext_resource type="Script" uid="uid://p0hcht27qdrh" path="res://scripts/hit_particles.gd" id="1_mpbbw"]
+
+[node name="HitParticles" type="Node2D"]
+script = ExtResource("1_mpbbw")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 20
+lifetime = 0.28
+one_shot = true
+explosiveness = 0.95
+randomness = 0.23
+lifetime_randomness = 0.24
+emission_shape = 1
+emission_sphere_radius = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.87
+initial_velocity_max = 63.04
