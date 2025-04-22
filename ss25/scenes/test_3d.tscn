@@ -1,0 +1,66 @@
+[gd_scene load_steps=8 format=3 uid="uid://ohvednpe4xjf"]
+
+[ext_resource type="Texture2D" uid="uid://dcv1indwqa4g0" path="res://materials/kloofendal_48d_partly_cloudy_puresky_2k.hdr" id="1_psit6"]
+[ext_resource type="Material" uid="uid://ci1s7s7t0fwkh" path="res://materials/floor.tres" id="1_sr87j"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_7yo4j"]
+panorama = ExtResource("1_psit6")
+
+[sub_resource type="Sky" id="Sky_psit6"]
+sky_material = SubResource("PanoramaSkyMaterial_7yo4j")
+
+[sub_resource type="Environment" id="Environment_7yo4j"]
+background_mode = 2
+background_color = Color(0.424126, 0.508697, 0.684515, 1)
+sky = SubResource("Sky_psit6")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_psit6"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7yo4j"]
+
+[node name="Test3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_7yo4j")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 5.9712, 0)
+shadow_enabled = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(0.792322, -0.610104, 0, 0.610104, 0.792322, 0, 0, 0, 1, 0, 3, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00455666, 0.00411892, -0.00251222)
+mesh = SubResource("CapsuleMesh_psit6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("CapsuleShape3D_7yo4j")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.969454, 0.245274, 0, -0.245274, 0.969454, 0, 3.55013, 4.34909)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.409515)
+use_collision = true
+size = Vector3(13.9896, 1.41797, 12.4586)
+material = ExtResource("1_sr87j")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.161556, 0.0400825, 1.00154)
+operation = 2
+radius = 1.6084
+height = 1.68945
+sides = 24
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.55577, 0.0400825, 2.51705)
+radius = 1.6084
+height = 1.68945
+sides = 24
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35376, 1.95802, 0.0935676)
+visible = false
