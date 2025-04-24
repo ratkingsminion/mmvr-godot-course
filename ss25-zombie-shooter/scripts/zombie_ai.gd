@@ -4,59 +4,71 @@ enum State { IDLE, FOLLOW, ATTACK }
 
 @export var agent: NavigationAgent2D
 @export var view_radius := 45.0
+@export var attack_radius := 15.0
 
 @onready var creature: CharacterBody2D = $".."
 @onready var debug_label: Label = $"../Debug Label"
 @onready var area_2d: Area2D = $Area2D
 @onready var health: Health = $"../HealthComponent"
 
-var state: State = State.FOLLOW
+var fsm := SimpleFSM.create(State, self)
 var follow_timer := 0.0
 var attack_timer := 0.0
 
+###
+
 func _ready() -> void:
 	health.on_hit.connect(_on_hit)
+	fsm.state_changed.connect(func(from, to) -> void: debug_label.text = State.keys()[to].to_lower())
+	fsm.set_state(State.FOLLOW)
 
-func _physics_process(delta: float) -> void:
+### FSM - idle
+
+func _physics_process_state_idle(delta: float) -> void:
+	if _can_attack_player(): fsm.set_state(State.ATTACK)
+	elif _sees_player(): fsm.set_state(State.FOLLOW)
+	else: agent.target_position = creature.position
+
+### FSM - follow
+
+func _enter_state_follow(prev: State) -> void:
+	follow_timer = 5.0
+
+func _physics_process_state_follow(delta: float) -> void:
+	if _sees_player(): follow_timer = 5.0 # "erinnere" dich an Player
+	follow_timer -= get_physics_process_delta_time() # "vergiss" Player langsam wieder
+	
+	if follow_timer <= 0.0: fsm.set_state(State.IDLE) # Vergessen? Zurück zu Idle
+	elif _can_attack_player(): fsm.set_state(State.ATTACK)
+	else: agent.target_position = Game.instance.player.position
+
+### FSM - attack
+
+func _enter_state_attack(prev: State) -> void:
+	attack_timer = 1.0
+	if area_2d.overlaps_body(Game.instance.player):
+		var health = Game.instance.player.find_child("HealthComponent")
+		if health: health.hurt(1)
+
+func _physics_process_state_attack(delta: float) -> void:
+	attack_timer -= get_physics_process_delta_time()
+	
+	if attack_timer <= 0.0: fsm.set_state(State.IDLE)
+	else: agent.target_position = creature.position
+
+###
+
+func _sees_player() -> bool:
 	var player := Game.instance.player
-	var sees_player := creature.position.distance_to(player.position) < view_radius
-	match state:
-		State.IDLE: _idle(sees_player)
-		State.FOLLOW: _follow(sees_player)
-		State.ATTACK: _attack()
-	debug_label.text = State.keys()[state].to_lower()
+	return creature.position.distance_to(player.position) < view_radius
 
-func _idle(sees_player: bool) -> void:
-	var target_position := creature.position
-	if sees_player: state = State.FOLLOW
-	agent.target_position = target_position
-
-func _follow(sees_player: bool) -> void:
-	var target_position := Game.instance.player.position
-	if sees_player or follow_timer <= 0.0: follow_timer = 5.0 # "erinnere" dich an Player
-	else: follow_timer -= get_physics_process_delta_time() # "vergiss" Player
-	if follow_timer <= 0.0: state = State.IDLE # Vergessen? Zurück zu Idle
-	if target_position.distance_to(creature.position) < 15:
-		state = State.ATTACK
-	else:
-		agent.target_position = target_position
-
-func _attack() -> void:
-	var target_position := creature.position
-	if attack_timer <= 0.0: # führe Attacke aus - verletze Spieler
-		attack_timer = 1.0
-		if area_2d.overlaps_body(Game.instance.player):
-			var health = Game.instance.player.find_child("HealthComponent")
-			if health: health.hurt(1)
-	else: # warte eine Sekunde
-		attack_timer -= get_physics_process_delta_time()
-	if attack_timer <= 0.0:
-		state = State.IDLE
-	agent.target_position = target_position
+func _can_attack_player() -> bool:
+	var player := Game.instance.player
+	return creature.position.distance_to(player.position) < attack_radius
 
 ### signals
 
 func _on_hit() -> void:
-	if state in [ State.IDLE ]:
-		state = State.FOLLOW
+	if fsm.get_state() in [ State.IDLE ]:
+		fsm.set_state(State.FOLLOW)
 		follow_timer = 10.0

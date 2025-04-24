@@ -234,7 +234,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.8541, 4.86307)
 curve = SubResource("Curve3D_5dsnb")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-transform = Transform3D(0.837133, 0.245076, 0.489006, -0.154509, -0.75163, 0.641219, 0.5247, -0.61234, -0.591364, -3.27118, 2.26324, 0.68225)
+transform = Transform3D(0.837133, 0.245076, 0.489007, -0.154509, -0.75163, 0.641219, 0.5247, -0.61234, -0.591365, -3.27118, 2.26324, 0.68225)
 progress = 39.5832
 script = SubResource("GDScript_vrvxl")
 

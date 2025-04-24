@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=4 uid="uid://6pv36awabydh"]
+[gd_scene load_steps=39 format=4 uid="uid://6pv36awabydh"]
 
 [ext_resource type="Texture2D" uid="uid://cupqsfuqxlcn1" path="res://graphics/crate.png" id="1_d3dpf"]
 [ext_resource type="Script" uid="uid://cencsjx0ocpai" path="res://scripts/zelda_player.gd" id="1_xaqt8"]
@@ -7,6 +7,7 @@
 [ext_resource type="TileSet" uid="uid://ckx638yj7w6lu" path="res://graphics/world_tileset.tres" id="5_fd21f"]
 [ext_resource type="Texture2D" uid="uid://djbx370j88453" path="res://graphics/testGradientCircle.png" id="5_op7d5"]
 [ext_resource type="PackedScene" uid="uid://c8if63d3yyiaa" path="res://scenes/prefabs/powerup.tscn" id="7_citai"]
+[ext_resource type="Script" uid="uid://cy2kufn0d766j" path="res://scripts/points_label.gd" id="8_rj37h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d3dpf"]
 size = Vector2(64, 66)
@@ -217,6 +218,7 @@ script/source = "extends Area2D
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group(\"player\"):
 		body.modulate = Color.DEEP_PINK
+		SignalBus.player_enters_zone.emit()
 
 func _on_body_exited(body: Node2D) -> void:
 	if body.is_in_group(\"player\"):
@@ -397,6 +399,18 @@ layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 3
 text = "Runter"
+
+[node name="Points Label" type="Label" parent="CanvasLayer"]
+offset_left = 359.0
+offset_top = 14.0
+offset_right = 517.0
+offset_bottom = 92.0
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/font_size = 30
+text = "Points"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_rj37h")
 
 [connection signal="area_entered" from="ZeldaPlayer/Checker" to="ZeldaPlayer" method="_on_checker_area_entered"]
 [connection signal="body_entered" from="Area Colorize" to="Area Colorize" method="_on_body_entered"]

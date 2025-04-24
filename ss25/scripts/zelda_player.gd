@@ -61,6 +61,9 @@ func _physics_process(delta: float) -> void:
 	## Die folgende Funktion wird aufgerufen, damit die "velocity"-Variable überhaupt benutzt wird.
 	## Die Position des Players wird verändert und Kollision berücksichtigt.
 	move_and_slide()
+	
+	if velocity:
+		SignalBus.player_moves.emit(velocity)
 
 	## Die folgende if-Abfrage funktioniert folgerndermaßen:
 	## Solange es _keine_ Bewegungsgeschwindigkeit gibt, wird die "idle"-Animation des AnimationPlayer-
@@ -84,7 +87,8 @@ func _on_checker_area_entered(area: Area2D) -> void:
 	## eine Gruppe (group) namens "collectibles") gepackt. Dies können wir einfach mit is_in_group()
 	## abfragen.
 	if area.is_in_group("collectibles"):
-		points += 10
+		points += 1
+		SignalBus.player_collects_powerup.emit(points)
 		
 		## Wir animieren das Einsammeln ein wenig, sodass das Powerup nicht sofort verschwindet aus
 		## der Szene. Das bedeutet aber auch, dass man sie potentiell zweimal einsammeln könnte.

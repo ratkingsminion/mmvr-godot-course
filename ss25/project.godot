@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="Uni25MMVR"
-run/main_scene="uid://ohvednpe4xjf"
+run/main_scene="uid://6pv36awabydh"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
+
+[autoload]
+
+SignalBus="*res://scripts/signal_bus.gd"
 
 [display]
 
