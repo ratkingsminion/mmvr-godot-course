@@ -24,5 +24,5 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 	anim_tree.set("parameters/conditions/fly", not is_on_floor())
-	anim_tree.set("parameters/conditions/idle", not velocity)
-	anim_tree.set("parameters/conditions/walk", velocity != Vector3.ZERO)
+	anim_tree.set("parameters/conditions/idle", is_on_floor() and not velocity)
+	anim_tree.set("parameters/conditions/walk", is_on_floor() and velocity != Vector3.ZERO)

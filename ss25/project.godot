@@ -26,6 +26,8 @@ window/stretch/aspect="keep_height"
 
 folder_colors={
 "res://graphics/": "red",
+"res://materials/": "blue",
+"res://models/": "green",
 "res://scenes/": "orange",
 "res://scripts/": "yellow"
 }

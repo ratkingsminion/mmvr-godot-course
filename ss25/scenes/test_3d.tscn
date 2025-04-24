@@ -1,7 +1,7 @@
 [gd_scene load_steps=35 format=3 uid="uid://ohvednpe4xjf"]
 
-[ext_resource type="Texture2D" uid="uid://dcv1indwqa4g0" path="res://materials/kloofendal_48d_partly_cloudy_puresky_2k.hdr" id="1_psit6"]
 [ext_resource type="Material" uid="uid://ci1s7s7t0fwkh" path="res://materials/mat_floor.tres" id="1_sr87j"]
+[ext_resource type="Texture2D" uid="uid://caqywt15va2qd" path="res://materials/kloofendal_48d_partly_cloudy_puresky_2k.jpg" id="1_vrvxl"]
 [ext_resource type="ArrayMesh" uid="uid://up2qmrgxjx2t" path="res://models/test_torus.obj" id="3_7yo4j"]
 [ext_resource type="Material" uid="uid://ciyjukew58cfb" path="res://materials/mat_player_3d.tres" id="4_jhnud"]
 [ext_resource type="Script" uid="uid://befaacg51b7yg" path="res://scripts/player_sphere.gd" id="4_y0ssg"]
@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://p4ovlxw5d3hi" path="res://scenes/prefabs/box_3d.tscn" id="9_vrvxl"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_7yo4j"]
-panorama = ExtResource("1_psit6")
+panorama = ExtResource("1_vrvxl")
 energy_multiplier = 0.5
 
 [sub_resource type="Sky" id="Sky_psit6"]
@@ -26,8 +26,10 @@ tonemap_mode = 2
 glow_enabled = true
 fog_enabled = true
 fog_light_energy = 5.43
+fog_sky_affect = 0.105
 volumetric_fog_enabled = true
 volumetric_fog_density = 0.0753
+volumetric_fog_sky_affect = 0.65
 adjustment_saturation = 0.5
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_jhnud"]
@@ -106,8 +108,8 @@ func _ready() -> void:
 	while true:
 		await get_tree().create_timer(0.5).timeout
 		var obj := spawn_object.instantiate()
-		obj.global_position = global_position
 		get_tree().root.add_child(obj)
+		obj.global_position = global_position
 "
 
 [node name="Test3D" type="Node3D"]
@@ -246,8 +248,8 @@ shape = SubResource("BoxShape3D_5dsnb")
 mesh = SubResource("BoxMesh_vrvxl")
 
 [node name="FogVolume" type="FogVolume" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.681091, 1.86708, 2.58881)
-size = Vector3(10.2684, 5.73416, 7.17761)
+transform = Transform3D(0.561852, 0, 0.827237, 0, 1, 0, -0.827237, 0, 0.561852, -5.42345, 1.86708, -0.576902)
+size = Vector3(10.0073, 5.73416, 7.17761)
 material = SubResource("FogMaterial_2haen")
 
 [node name="CPUParticles3D" type="CPUParticles3D" parent="."]
